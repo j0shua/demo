@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>demo</title>
+		<link rel="stylesheet" type="text/css" href="reset.css" /> 
+		<link rel="stylesheet" type="text/css" href="style.css" /> 
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+		    		
+  		$('button').click(function() {
+  		  addItem();
+  		});
+  		
+  		$('ul').dblclick(function(e){
+  		  console.log(e.target)
+  		  console.log("item " + $(e.target).text() + " was double clicked")
+  		})
+  		
+		  
+		});
+		
+		var count = 0;
+		function addItem() {
+		  //console.log($('#inner').width());
+		  newItem = $('<li class="item">'+(count++)+'</li>').appendTo('#inner');
+		  
+		  newItem.fadeIn('fast', function() {
+		    
+		     $('li').sortable();
+		  });
+
+
+		  //console.log(newItem.outerWidth(true));
+		  
+		  $('#inner').width($('#inner').width()+newItem.outerWidth(true));
+		  $('#container')[0].scrollLeft = $('#container')[0].scrollWidth;
+		  $('ul').sortable();
+		}
+		</script>
+	</head>
+	<body>
+	 <div id="container">
+	   <ul id="inner">
+	   
+	   </ul>
+	 </div>
+	 <button>Add One</button>
+	</body>
+</html>
