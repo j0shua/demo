@@ -14,12 +14,44 @@
   		});
   		
   		$('ul').dblclick(function(e){
-  		  console.log(e.target)
-  		  console.log("item " + $(e.target).text() + " was double clicked")
+  		  var hashkey = ($(e.target).attr('hash'))
+  		  var url;
+  		  if(!hashkey) {
+  		    url = 'form.html';
+  		  }
+  		  else {
+  		    url = 'http://www.google.com/'+hashkey
+  		  }
+  		  showLightbox(url);
   		})
   		
 		  
 		});
+		
+		
+		function showLightbox(url) {
+		  $('#overlay').show();
+		  var overlayBox = $('<div class="overlaybox"><div class="inner"></div><span class="close">X</span></div>').appendTo('body');
+		  $.ajax({ url: url, success: function(content){
+        $(overlayBox.children('.inner')[0]).html(content);
+      }});
+		}
+		
+		
+		$('.close').live('click', function() {
+      $('.overlaybox').remove();
+      $('#overlay').hide();
+    });
+		
+		
+		
+		$('#saveme').live('click', function() {
+      //close window
+      //define the hash
+      alert('saved');
+      return false;
+    })
+
 		
 		var count = 0;
 		function addItem() {
@@ -47,5 +79,6 @@
 	   </ul>
 	 </div>
 	 <button>Add One</button>
+	 <div id="overlay"></div>
 	</body>
 </html>
